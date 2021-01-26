@@ -7,15 +7,12 @@
     $name = $_POST['name'];
     $title = $_POST['title'];
     $message = $_POST['message'];
-    // $image = $_FILES['image'];
-    
-    // $tmp = $_FILES;
     
     $image_name = HumanDAO::upload();
+    var_dump($image_name);
     $human = new Human($name, $title,$message,$image_name);
+    $errors = $human->validate();
     
-
-    // $errors = $human->validate();
 
     
     if(count($errors) !== 0){
@@ -24,7 +21,6 @@
         exit();
     }else{ 
         $_SESSION['human'] = $human;
-        // $_SESSION['tmp'] = $tmp;
         header('Location: new.done.php');
         exit;
     }

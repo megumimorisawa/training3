@@ -1,7 +1,7 @@
 <?php
-    require_once "human.php";
+    require_once "Comment.php";
     //dao
-    class HumanDAO {
+    class CommentDAO {
         //データーベースへ接続メソッド
         public static function get_connection(){
             $dsn = 'mysql:host=localhost;dbname=sns';
@@ -21,40 +21,40 @@
             $stmt = null;
             
         }
-        //データーベースから全会員情報を取得するメソッド
-        public static function get_all_humans(){
-            try {
-                $dbh = self::get_connection();
-                $stmt = $dbh->query('select * from sns.sample order by id desc');
-                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Human');
-                $humans = $stmt->fetchAll();
-                
-            } catch(PDOException $e) {
-                
-            }finally{
-                self::close_connection($dbh, $stmt);
-            }
-            return $humans;
-         }
-        //データーベースに新規会員を登録するメソッド
-        public static function insert($human){
+        
+        
+        //データベースにコメントを登録するメソッド
+        public static function insert_comment($comment){
             try{
                 $dbh = self::get_connection();
-                $stmt = $dbh->prepare('insert into sample (name,title,message,image) values (:name, :title, :message, :image)');
-                $stmt->bindParam(':name', $human->name, PDO::PARAM_STR);
-                $stmt->bindValue(':title',$human->title,PDO::PARAM_STR);
-                $stmt->bindValue(':message',$human->message,PDO::PARAM_STR);
-                $stmt->bindValue(':image',$human->image);
-                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Human');
-                $stmt->execute();
+                $stmt = $dbh->prepare('insert into comments (message_id, name, message) values (:message_id, :name, :message)');
+                $stmt->bindValue(':name', $comment->name, PDO::PARAM_STR);
+                $stmt->bindValue(':message',$comment->message,PDO::PARAM_STR);
+                $stmt->bindValue(':message_id',$comment->message_id,PDO::PARAM_INT);
                 
+                $stmt->execute();
             }catch(PDOException $e){
                 
             }finally{
                 self::close_connection($dbh, $stmt);
             }
         }
-        
+        //データーベースから注目する投稿に対する全コメントを取得するメソッド
+        public static function get_all_comments($id){
+            try {
+                $dbh = self::get_connection();
+                $stmt = $dbh->prepare('select * from comments where message_id = :message_id order by id desc');
+                $stmt->bindValue(':message_id',$id,PDO::PARAM_INT);
+                $stmt->execute();
+                $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+            } catch(PDOException $e) {
+                
+            }finally{
+                self::close_connection($dbh, $stmt);
+            }
+            return $comments;
+         }
         //IDを指定して会員を削除するメソッド
         public static function delete($id){
             try{
@@ -102,23 +102,4 @@
                 self::close_connection($dbh, $stmt);
             }
         }
-    
-              // ファイルをアップロードするメソッド
-    public function upload(){
-        // ファイルを選択していれば
-        if (!empty($_FILES['image']['name'])) {
-            // ファイル名をユニーク化
-            $image = uniqid(mt_rand(), true); 
-            // アップロードされたファイルの拡張子を取得
-            $image .= '.' . substr(strrchr($_FILES['image']['name'], '.'), 1);
-            $file = 'upload/'. $image;
-        
-            // uploadディレクトリにファイル保存
-            move_uploaded_file($_FILES['image']['tmp_name'], $file);
-            
-            return $image;
-        }else{
-            return '';
-        }
-    }
 }

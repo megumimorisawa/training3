@@ -3,12 +3,13 @@
     
     $name = $_POST['name'];
     $title = $_POST['title'];
-    $mes = $_POST['message'];
-    $image = $_FILES['image'];
-    $code = $_POST['id'];
+    $message = $_POST['message'];
+    $code = $_GET['id'];
     
-
-    HumanDAO::update($code, $name, $title,$mes,$image);
+    $image_name = HumanDAO::upload();
+    
+    HumanDAO::update($code, $name, $title, $message, $image_name);
+    
 
     ?>
 <!DOCTYPE html>

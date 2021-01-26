@@ -1,17 +1,18 @@
 <?php
     
-    class Human{
+    class Comment{
         
+        public $id;
+        public $message_id;
         public $name; 
-        public $title;
         public $message;
-        public $image;
+        public $created_at;
+        
 
-        public function __construct($name, $title,$message,$image){
+        public function __construct($message_id, $name, $message){
+            $this->message_id = $message_id;
             $this->name = $name;
-            $this->title = $title;
             $this->message = $message;
-            $this->image = $image;
         }
         
         public function validate(){
@@ -19,19 +20,12 @@
              if($this->name === ''){
                 $errors[] = "お名前を入力してください";
              }
-    
-             if($this->title === ''){
-                $errors[] = "タイトルを入力してください";
-             }
+
              
              if($this->message === ''){
                  $errors[] = "内容を入力してください";
              }
-             
-             if($this->image === ''){
-                 $errors[] = "画像を選択してください";
-        
-             }
+            
             return $errors;
         }
     }
