@@ -76,7 +76,7 @@
                 $stmt = $dbh->prepare('select * from sample where id = :id');
                 $stmt->bindValue(':id',$id,PDO::PARAM_INT);
                 $stmt->execute();
-                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Human');
+                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Post');
                 $human = $stmt->fetch();
             }catch(PDOException $e){
                 

@@ -1,7 +1,7 @@
 <?php
-    require_once "human.php";
+    require_once "Post.php";
     //dao
-    class HumanDAO {
+    class PostDAO {
         //データーベースへ接続メソッド
         public static function get_connection(){
             $dsn = 'mysql:host=localhost;dbname=sns';
@@ -22,30 +22,30 @@
             
         }
         //データーベースから全会員情報を取得するメソッド
-        public static function get_all_humans(){
+        public static function get_all_posts(){
             try {
                 $dbh = self::get_connection();
                 $stmt = $dbh->query('select * from sns.sample order by id desc');
-                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Human');
-                $humans = $stmt->fetchAll();
+                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Post');
+                $posts = $stmt->fetchAll();
                 
             } catch(PDOException $e) {
                 
             }finally{
                 self::close_connection($dbh, $stmt);
             }
-            return $humans;
+            return $posts;
          }
         //データーベースに新規会員を登録するメソッド
-        public static function insert($human){
+        public static function insert($post){
             try{
                 $dbh = self::get_connection();
                 $stmt = $dbh->prepare('insert into sample (name,title,message,image) values (:name, :title, :message, :image)');
-                $stmt->bindParam(':name', $human->name, PDO::PARAM_STR);
-                $stmt->bindValue(':title',$human->title,PDO::PARAM_STR);
-                $stmt->bindValue(':message',$human->message,PDO::PARAM_STR);
-                $stmt->bindValue(':image',$human->image);
-                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Human');
+                $stmt->bindParam(':name', $post->name, PDO::PARAM_STR);
+                $stmt->bindValue(':title',$post->title,PDO::PARAM_STR);
+                $stmt->bindValue(':message',$post->message,PDO::PARAM_STR);
+                $stmt->bindValue(':image',$post->image);
+                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Post');
                 $stmt->execute();
                 
             }catch(PDOException $e){
@@ -70,20 +70,20 @@
             }
         }
         //IDを指定して一人の会員を抜き出すメソッド
-        public static function get_human_by_id($id){
+        public static function get_post_by_id($id){
             try{
                 $dbh = self::get_connection();
                 $stmt = $dbh->prepare('select * from sample where id = :id');
                 $stmt->bindValue(':id',$id,PDO::PARAM_INT);
                 $stmt->execute();
-                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Human');
-                $human = $stmt->fetch();
+                $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Post');
+                $post = $stmt->fetch();
             }catch(PDOException $e){
                 
             }finally{
                 self::close_connection($dbh, $stmt);
             }
-            return $human;
+            return $post;
         }
         //IDを指定して会員情報を変更するメソッド
         public static function update($id, $name, $title, $mes, $image_name){

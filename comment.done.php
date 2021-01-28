@@ -5,20 +5,18 @@
     $name = $_POST['name'];
     $message = $_POST['message'];
     $id = $_POST['id'];
+    
     $comment = new Comment($id, $name, $message);
+    
     $errors = $comment->validate();
     if(count($errors) === 0){
         CommentDAO::insert_comment($comment);
-        
     }else {
         $_SESSION['errors'] = $errors;
         header('Location: show.php?id=' . $id);
         exit;
-        // var_dump($errors);
     }
-    
-    
-        
+
 ?>
 
 <!DOCTYPE html>

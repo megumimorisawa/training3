@@ -1,5 +1,5 @@
 <?php
-    require_once 'human.php';
+    require_once 'Post.php';
     session_start();
     
     $errors = array();
@@ -14,28 +14,34 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="new.css">
     <title>新規投稿</title>
 </head>
 <body>
-    <h1>新規投稿</h1>
-    <ul>
-        <?php foreach($errors as $error): ?>
+    <div class="new-post">
+        <h1 class="new-post-ttl">NEW POST</h1>
+        <ul class="new-post-error">
+            <?php foreach($errors as $error): ?>
             <li><?= $error ?></li>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
         </ul>
-    <form action="check.php" method="post" enctype="multipart/form-data">
-        名前
-        <div><input type="text" name="name"></div><br/>
-        タイトル
-        <div><input type="text" name="title"></div><br/>
-        メッセージ
-        <div><input type="text" name="message"></div><br/>
-        画像
-        <div><input type="file" name="image" style="width:400px"></div><br/>
-        <br/>
-        <input type="button" onclick="history.back()" value="戻る">
-        <input type="submit" value="投稿">
-    </form>
+        <div class="new-post-inner">
+            <form action="check.php" method="post" enctype="multipart/form-data">
+                <p>name</p>
+                <div class="new-post-name"><input type="text" name="name" style="height:25px"></div><br/>
+                <p>title</p>
+                <div class="new-post-title"><input type="text" name="title" style="height:25px"></div><br/>
+                <p>message</p>
+                <div class="new-post-message"><input type="text" name="message" style="height:25px;width:40%"></div><br/>
+                <p>image</p>
+                <div class="new-post-image"><input type="file" name="image" style="width:400px"></div><br/>
+                <br/>
+                <input class="back-btn" type="button" onclick="history.back()" value="BACK">
+                <input class="post-btn" type="submit" value="POST">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
     

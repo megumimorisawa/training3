@@ -1,6 +1,6 @@
 <?php
     
-    class Human{
+    class Post{
         
         public $name; 
         public $title;

@@ -1,14 +1,13 @@
 <?php
-    require_once 'HumanDAO.php';
+    require_once 'PostDAO.php';
     
     $name = $_POST['name'];
     $title = $_POST['title'];
     $message = $_POST['message'];
     $code = $_GET['id'];
+    $image_name = PostDAO::upload();
     
-    $image_name = HumanDAO::upload();
-    
-    HumanDAO::update($code, $name, $title, $message, $image_name);
+    PostDAO::update($code, $name, $title, $message, $image_name);
     
 
     ?>

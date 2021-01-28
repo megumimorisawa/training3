@@ -1,0 +1,147 @@
+body {
+    font-family: "Noto Sans JP",sans-serif;
+    margin: 0;
+    text-align: center;
+    color: #333;
+    font-size: 16px;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    background: #fff;
+}
+
+.header-inner {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.header-ttl {
+    margin: 10px 0 0;
+    font-weight: bold;
+}
+
+.now {
+    width: 450px;
+    height: 170px;
+    margin: 100px auto 80px;
+    background-color: #eee;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.now-inner {
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
+}
+
+.now-ttx {
+    color: #808080;
+}
+
+.now-btn {
+    text-decoration: none;
+    color: #fff;
+    background-color: #0cf;
+    border: 1px solid #0cf;
+    border-radius: 10px;
+    box-shadow: 0 5px 3px rgba(0, 0, 0, 0.5);
+    padding: 3px 10px;
+    font-size: 14px;
+}
+
+.main {
+    width: 550px;
+    margin: 0 auto;
+}
+
+.main-inner {
+    width: 100%;
+    height: 100%;
+}
+
+.main-box {
+    padding: 15px;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.main-box-top {
+    display: flex;
+}
+
+.main-title {
+    padding-left: 80px;
+}
+
+.main-id {
+    font-family: 'Varela Round', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+.main-message {
+  width: 100%;
+  margin: 1.5em 0;
+  overflow: hidden;
+}
+
+.main-message .main-icon {
+  float: left;
+  margin-right: -90px;
+  width: 80px;
+}
+
+.main-message .main-icon img{
+  width: 80%;
+  height: auto;
+}
+
+.main-message .main-talk {
+  width: 100%;
+}
+
+.main-says {
+  display: inline-block;
+  position: relative; 
+  margin: 5px 0 0  -30px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #d7ebfe;
+}
+
+.main-says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px; 
+  left: -24px;
+  border: 12px solid transparent;
+  border-right: 12px solid #d7ebfe;
+}
+
+.main-says p {
+  margin: 0;
+  padding: 0;
+}
+
+.main-date {
+    display: flex;
+    justify-content: flex-end;
+    color: #c0c0c0;
+}
+
+
+
+
+

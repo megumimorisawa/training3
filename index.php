@@ -1,10 +1,10 @@
 
 
 <?php
-    require_once "HumanDAO.php";
+    require_once "PostDAO.php";
     session_start();
         
-    $humans = HumanDAO::get_all_humans();
+    $posts = PostDAO::get_all_posts();
     
     include_once "index_view.php";
 ?>

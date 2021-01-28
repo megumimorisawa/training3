@@ -1,5 +1,5 @@
 <?php
-    require_once "HumanDAO.php";
+    require_once "PostDAO.php";
     require_once "CommentDAO.php";
     session_start();
     
@@ -7,10 +7,9 @@
     $_SESSION['errors'] = null;
     
     $code = $_GET['id'];
-    $human = HumanDAO::get_human_by_id($code);
+    $post = PostDAO::get_post_by_id($code);
     
     $comments = CommentDAO::get_all_comments($code);
-    // var_dump($comments);
     
 ?>    
 
@@ -18,27 +17,45 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP">
+    <link rel="stylesheet" href="show.css">
     <title>詳細表示</title>
 </head>
 <body>
-    <h1>詳細</h1>
-    <ul>
-        <li>名前：<?= $human->name ?></li>
-        <li>投稿日時：<?= $human->created_at ?></li>
-        <li>タイトル：<?= $human->title ?></li>
-        <li>内容：<?= $human->message ?></li>
-        <li>画像：</li>
-        <img src='upload/<?= $human->image ?>'>
-    </ul>
-    <a href='edit.php?id=<?= $human->id ?>'>編集</a> <a href='delete.php?id=<?= $human->id ?>'>削除</a>
-    <br/>
-    <br/>
+    <h1 class="show-ttl">Post Details</h1>
     
+    <div class="show">
+        <div class="show-box">
+            <div class="show-top">
+                <span class="show-name"><?= $post->name ?></span>　
+                <span class="show-title">「<?= $post->title ?>」</span>
+            </div>
+                    
+            <div class="show-message">
+                <div class="show-icon">
+                    <img src="user_icon.png">
+                </div>
+                <div class="show-talk">
+                    <div class="show-says">
+                        <p><?= $post->message ?></p>
+                    </div>
+                </div>
+            </div>
+            <img src='upload/<?= $post->image ?>'>
+            <div class="show-date"><?= $post->created_at ?></div>
+        </div>
+    </div>
+    <div class="show-btn">
+        <a class="edit-btn" href='edit.php?id=<?= $post->id ?>'><img src="edit.png"></a>
+        <a class="delete-btn" href='delete.php?id=<?= $post->id ?>'><img src="delete.png"></a>
+    </div>
     
-    <h1>コメント一覧</h1>
-    <?php foreach($errors as $error): ?>
-    <?= $error ?><br/>
-    <?php endforeach; ?>
+    <h2 class="comment-ttl">COMMENTS</h2>
+    <div class="comment-error">
+        <?php foreach($errors as $error): ?>
+        <?= $error ?><br/>
+        <?php endforeach; ?>
+    </div>
     
     <?php foreach($comments as $comment): ?>
     <?= $comment['id']; ?>　<?= $comment['name']; ?><br/>
@@ -50,15 +67,19 @@
     
     <br/>
     <br/>
-    <form action="comment.done.php" method="post">
-        名前：<input type="text" name="name">  コメント：<input type="text" name="message"><br/>
+    <form class="comment-form" action="comment.done.php" method="post">
+        <span>name</span>
+        <div><input type="text" name="name"></div>
+        
+        <span>comment</span>
+        <div><input type="text" name="message"></div>
         <br/>
         <input type="hidden" name="id" value="<?= $code ?>">
         <input type="submit" value="コメントを投稿">
     </form>
     <br/>
     <br/>
-    <a href="index.php">投稿一覧へ</a>
+    <a href="index.php">HOME</a>
     
     
 

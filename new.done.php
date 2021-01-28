@@ -1,10 +1,10 @@
 <?php
-    require_once "HumanDAO.php";
+    require_once "PostDAO.php";
     session_start();
     
-    $human = $_SESSION['human'];
+    $post = $_SESSION['post'];
     
-    $human = HumanDAO::insert($human);
+    $post = PostDAO::insert($post);
     
 
     

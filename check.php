@@ -1,5 +1,5 @@
 <?php
-    require_once 'HumanDAO.php';
+    require_once 'PostDAO.php';
     session_start();
     
     $errors = array();
@@ -8,10 +8,10 @@
     $title = $_POST['title'];
     $message = $_POST['message'];
     
-    $image_name = HumanDAO::upload();
+    $image_name = PostDAO::upload();
     var_dump($image_name);
-    $human = new Human($name, $title,$message,$image_name);
-    $errors = $human->validate();
+    $post = new Post($name, $title,$message,$image_name);
+    $errors = $post->validate();
     
 
     
@@ -20,7 +20,7 @@
         header('Location: new.php');
         exit();
     }else{ 
-        $_SESSION['human'] = $human;
+        $_SESSION['post'] = $post;
         header('Location: new.done.php');
         exit;
     }

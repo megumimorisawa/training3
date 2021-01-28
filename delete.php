@@ -1,9 +1,9 @@
 <?php
-    require_once "HumanDAO.php";
+    require_once "PostDAO.php";
     
     $code = $_GET['id'];
         
-    HumanDAO::delete($code);
+    PostDAO::delete($code);
     
 ?>
 
