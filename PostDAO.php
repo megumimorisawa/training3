@@ -25,7 +25,7 @@
         public static function get_all_posts(){
             try {
                 $dbh = self::get_connection();
-                $stmt = $dbh->query('select * from sns.sample order by id desc');
+                $stmt = $dbh->query('select * from posts order by id desc');
                 $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Post');
                 $posts = $stmt->fetchAll();
                 
@@ -40,7 +40,7 @@
         public static function insert($post){
             try{
                 $dbh = self::get_connection();
-                $stmt = $dbh->prepare('insert into sample (name,title,message,image) values (:name, :title, :message, :image)');
+                $stmt = $dbh->prepare('insert into posts (name,title,message,image) values (:name, :title, :message, :image)');
                 $stmt->bindParam(':name', $post->name, PDO::PARAM_STR);
                 $stmt->bindValue(':title',$post->title,PDO::PARAM_STR);
                 $stmt->bindValue(':message',$post->message,PDO::PARAM_STR);
@@ -59,7 +59,7 @@
         public static function delete($id){
             try{
                 $dbh = self::get_connection();
-                $stmt = $dbh->prepare('delete from sample where id = :id');
+                $stmt = $dbh->prepare('delete from posts where id = :id');
                 $stmt->bindValue(':id',$id,PDO::PARAM_INT);
                 $stmt->execute();
                 
@@ -73,7 +73,7 @@
         public static function get_post_by_id($id){
             try{
                 $dbh = self::get_connection();
-                $stmt = $dbh->prepare('select * from sample where id = :id');
+                $stmt = $dbh->prepare('select * from posts where id = :id');
                 $stmt->bindValue(':id',$id,PDO::PARAM_INT);
                 $stmt->execute();
                 $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Post');
@@ -89,7 +89,7 @@
         public static function update($id, $name, $title, $mes, $image_name){
             try{
                 $dbh = self::get_connection();
-                $stmt = $dbh->prepare('update sample set name= :name,title= :title, message= :message, image= :image where id= :id');
+                $stmt = $dbh->prepare('update posts set name= :name,title= :title, message= :message, image= :image where id= :id');
                 $stmt->bindValue(':name',$name,PDO::PARAM_STR);
                 $stmt->bindValue(':title',$title,PDO::PARAM_STR);
                 $stmt->bindValue(':message',$mes,PDO::PARAM_STR);
