@@ -9,6 +9,9 @@
     
     PostDAO::update($code, $name, $title, $message, $image_name);
     
+    header('Location: index.php');
+    exit;
+    
 
     ?>
 <!DOCTYPE html>

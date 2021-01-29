@@ -11,6 +11,7 @@
     $errors = $comment->validate();
     if(count($errors) === 0){
         CommentDAO::insert_comment($comment);
+        header('Location: show.php?id=' . $id);
     }else {
         $_SESSION['errors'] = $errors;
         header('Location: show.php?id=' . $id);

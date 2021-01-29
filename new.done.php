@@ -6,6 +6,9 @@
     
     $post = PostDAO::insert($post);
     
+    header('Location: index.php');
+    exit;
+    
 
     
 ?>

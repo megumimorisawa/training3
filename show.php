@@ -22,7 +22,7 @@
     <title>詳細表示</title>
 </head>
 <body>
-    <h1 class="show-ttl">Post Details</h1>
+    <h1 class="show-ttl">DETAILS</h1>
     
     <div class="show">
         <div class="show-box">
@@ -52,36 +52,54 @@
     
     <h2 class="comment-ttl">COMMENTS</h2>
     <div class="comment-error">
-        <?php foreach($errors as $error): ?>
-        <?= $error ?><br/>
-        <?php endforeach; ?>
+        <ul>
+            <?php foreach($errors as $error): ?>
+            <li><?= $error ?></li><br/>
+            <?php endforeach; ?>
+        </ul>
     </div>
-    
-    <?php foreach($comments as $comment): ?>
-    <?= $comment['id']; ?>　<?= $comment['name']; ?><br/>
-    <br/>
-    <?= $comment['message']; ?><br/><br/>
-    <?= $comment['created_at']; ?><br/>
-    <hr/>
-    <?php endforeach; ?>
-    
-    <br/>
-    <br/>
     <form class="comment-form" action="comment.done.php" method="post">
         <span>name</span>
-        <div><input type="text" name="name"></div>
+        <div><input class="comment-form-name" type="text" name="name"></div>
         
         <span>comment</span>
-        <div><input type="text" name="message"></div>
+        <div><input class="comment-form-message" type="text" name="message"></div>
         <br/>
         <input type="hidden" name="id" value="<?= $code ?>">
-        <input type="submit" value="コメントを投稿">
+        <input class="comment-btn" type="submit" value="REPLY">
     </form>
-    <br/>
-    <br/>
-    <a href="index.php">HOME</a>
+    <div class="comment-inner">
+        <?php foreach($comments as $comment): ?>
+        <div class="comment-box">
+            <div class="comment-box-top">
+                <spam class="comment-id"><?= $comment['id']; ?></spam>
+                <span class="comment-name"><?= $comment['name']; ?></span>
+            </div>
+            
+            <div class="comment-message">
+                <div class="comment-icon">
+                    <img src="comment_user.png">
+                </div>
+                <div class="comment-talk">
+                    <div class="comment-says">
+                        <p><?= $comment['message']; ?></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comment-date">
+                <?= $post->created_at ?>
+            </div>
+        </div>   
+        <?php endforeach; ?>
+    </div>
+    <div class="home-btn">
+        <a href="index.php"><img src="home.png"></a>
+    </div>
     
     
+    <script src="jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
 
 </body>
 </html>
